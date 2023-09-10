@@ -29,7 +29,6 @@ MainState _openImageFullscreen(
 MainState _favoriteChangeAction(MainState state, FavoriteChangeAction action) {
   var id = state.imageDomainList[action.index].id;
   var url = state.imageDomainList[action.index].url;
-  var page = state.page;
   List<ImageDto> res = [];
   for (var element in state.imageDomainList) {
     if (element.id != id) {
@@ -38,5 +37,5 @@ MainState _favoriteChangeAction(MainState state, FavoriteChangeAction action) {
       res.add(ImageDto(id, url, action.isFavorite));
     }
   }
-  return MainState.init(res, page);
+  return MainState.newState(res, action.index, state.page);
 }

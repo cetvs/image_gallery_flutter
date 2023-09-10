@@ -12,7 +12,7 @@ class FavoriteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var icon = isFavorite ? Icon(Icons.favorite) : Icon(Icons.favorite_border);
+    var icon = Icon(isFavorite ? Icons.favorite : Icons.favorite_border);
     return IconButton(
       splashRadius: 20,
       icon: icon,

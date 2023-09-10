@@ -25,4 +25,9 @@ class MainState {
       : _imageDomainList = state.imageDomainList,
         _page = state.page,
         _openedIndex = index;
+
+  MainState.newState(List<ImageDto> imageDomainList, int page, int index )
+      : _imageDomainList = imageDomainList,
+        _page = page,
+        _openedIndex = index;
 }

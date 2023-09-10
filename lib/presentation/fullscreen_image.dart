@@ -7,26 +7,19 @@ import '../data/dto/image_dto.dart';
 import '../domain/redux/state.dart';
 import 'favorite_button.dart';
 
-class FullscreenImage extends StatefulWidget {
+class FullscreenImage extends StatelessWidget {
   const FullscreenImage({super.key});
 
-  @override
-  State<FullscreenImage> createState() => _FullscreenImageState();
-}
-
-class _FullscreenImageState extends State<FullscreenImage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: StoreConnector<MainState, MainState>(
             converter: (store) => store.state,
             builder: (_, state) {
-              var images = state.imageDomainList;
-              var openedIndex = state.openedIndex;
               return Center(
                   child: Stack(children: [
                 CachedNetworkImage(
-                    imageUrl: images[openedIndex].url,
+                    imageUrl: state.imageDomainList[state.openedIndex].url,
                     placeholder: (context, url) => const Center(
                           child: SizedBox(
                             width: 50,
@@ -39,9 +32,10 @@ class _FullscreenImageState extends State<FullscreenImage> {
                     errorWidget: (context, url, error) =>
                         const Icon(Icons.error)),
                 Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 10, 10),
+                    padding: const EdgeInsets.fromLTRB(0, 0, 10, 10),
                     child: FavoriteButton(
-                        images[openedIndex].isFavorite, openedIndex))
+                        state.imageDomainList[state.openedIndex].isFavorite,
+                        state.openedIndex))
               ]));
             }));
   }

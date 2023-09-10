@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/domain/image_domain.dart';
 import 'package:flutter_app/domain/redux/action.dart';
 import 'package:flutter_app/domain/redux/state.dart';
 import 'package:flutter_app/presentation/favorite_button.dart';
@@ -17,38 +16,33 @@ class ImageGallery extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.all(8.0),
+    return Center(
         child: InkWell(
             onTap: () => open(context, imageIndex),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Container(
-                    height: 300,
-                    child: CachedNetworkImage(
-                      imageUrl: imageDto.url,
-                      placeholder: (context, url) => const Center(
-                        child: SizedBox(
-                          width: 50,
-                          height: 50,
-                          child: CircularProgressIndicator(
-                            color: Colors.green,
-                          ),
-                        ),
-                      ),
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.error),
+            child: Stack(children: [
+              Center(
+                  child: CachedNetworkImage(
+                height: 400,
+                width: 400,
+                imageUrl: imageDto.url,
+                placeholder: (context, url) => const Center(
+                  child: SizedBox(
+                    width: 50,
+                    height: 50,
+                    child: CircularProgressIndicator(
+                      color: Colors.green,
                     ),
                   ),
-                  Container(
-                      height: 40,
-                      alignment: Alignment.bottomRight,
-                      child: Padding(
-                          padding: EdgeInsets.fromLTRB(0, 0, 30, 0),
-                          child: FavoriteButton(imageDto.isFavorite, imageIndex))),
-                  const Divider()
-                ])));
+                ),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+              )),
+              Padding(
+                padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                child: FavoriteButton(imageDto.isFavorite, imageIndex)
+              ),
+              const Padding(
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, 0), child: Divider())
+            ])));
   }
 
   void open(BuildContext context, final int index) {
