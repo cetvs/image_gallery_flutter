@@ -12,17 +12,17 @@ class FavoriteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // var icon = isFavorite ? Icon(Icons.favorite) : Icon(Icons.favorite_border);
+    var icon = isFavorite ? Icon(Icons.favorite) : Icon(Icons.favorite_border);
     return IconButton(
       splashRadius: 20,
-      icon: Icon(Icons.favorite) ,
+      icon: icon,
       color: Colors.green,
-      onPressed: () => _favoritePressed(context),
+      onPressed: () => {_favoritePressed(context)},
     );
   }
 
   Future _favoritePressed(context) async {
     var store = StoreProvider.of<MainState>(context);
-    store.dispatch(FavoriteChangeAction(imageIndex, isFavorite));
+    store.dispatch(FavoriteChangeAction(imageIndex, !isFavorite));
   }
 }
