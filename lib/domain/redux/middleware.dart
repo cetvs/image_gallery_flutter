@@ -13,11 +13,7 @@ final Repository repository = Repository.getInstance();
 
 ThunkAction<MainState> loadNextPage = (Store<MainState> store) async {
   ImageDtoPage imageDtoPage = await repository.getPageByCount(store.state.page);
-
-  var dtoList = imageDtoPage.imageDtoList ?? [];
-  // for (var el in dtoList) {
-  //   resultList.add(LayerParser.parse(el));
-  // }
-
-  store.dispatch(LoadGalleryAction(dtoList, imageDtoPage.page + 1));
+  var result = store.state.imageDomainList + (imageDtoPage.imageDtoList ?? []);
+  // var result = imageDtoPage.imageDtoList ?? [];
+  store.dispatch(LoadGalleryAction(result, imageDtoPage.page + 1));
 };

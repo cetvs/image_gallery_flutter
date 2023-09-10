@@ -12,9 +12,10 @@ class FavoriteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // var icon = isFavorite ? Icon(Icons.favorite) : Icon(Icons.favorite_border);
     return IconButton(
       splashRadius: 20,
-      icon: const Icon(Icons.favorite),
+      icon: Icon(Icons.favorite) ,
       color: Colors.green,
       onPressed: () => _favoritePressed(context),
     );
@@ -25,27 +26,3 @@ class FavoriteButton extends StatelessWidget {
     store.dispatch(FavoriteChangeAction(imageIndex, isFavorite));
   }
 }
-
-// class FavoriteButton extends StatefulWidget {
-//   const FavoriteButton(this.id{super.key});
-//
-//   @override
-//   State<StatefulWidget> createState() => _FavoriteButtonState();
-// }
-//
-// class _FavoriteButtonState extends State {
-//   @override
-//   Widget build(BuildContext context) {
-//     return IconButton(
-//       splashRadius: 20,
-//       icon: const Icon(Icons.favorite),
-//       color: Colors.green,
-//       onPressed: () => _favoritePressed(context, ),
-//     );
-//   }
-//
-//   Future _favoritePressed(context, int currentIndex, bool isFavorite) async {
-//     var store = StoreProvider.of<MainState>(context);
-//     store.dispatch(FavoriteChangeAction(currentIndex, isFavorite));
-//   }
-// }

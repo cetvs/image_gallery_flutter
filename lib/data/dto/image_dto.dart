@@ -7,7 +7,7 @@ class ImageDto {
 
   ImageDto.fromJson(Map<String, dynamic> json)
       : _id = json['id'],
-        _url = json['urls']['full'],
+        _url = json['urls']['small'],
         _isFavorite = false;
 
   String get id => _id;
