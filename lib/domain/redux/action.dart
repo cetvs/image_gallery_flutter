@@ -1,5 +1,4 @@
 import 'package:flutter_app/data/dto/image_dto.dart';
-import 'package:flutter_app/domain/image_domain.dart';
 
 class LoadGalleryAction {
   final List<ImageDto> _imageList;
@@ -23,12 +22,11 @@ class OpenImageFullscreenAction {
 class FavoriteChangeAction {
   final int _index;
 
-  // final String _id;
   final bool _isFavorite;
 
   FavoriteChangeAction(this._index, this._isFavorite);
 
   int get index => _index;
-  // String get id => _id;
+
   bool get isFavorite => _isFavorite;
 }
