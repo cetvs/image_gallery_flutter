@@ -1,23 +1,20 @@
 class ImageDto {
   String _id;
   String _url;
+  bool _isFavorite;
 
-  ImageDto(this._id, this._url);
+  ImageDto(this._id, this._url, this._isFavorite);
 
   ImageDto.fromJson(Map<String, dynamic> json)
-  : _id = json['id'],
-    _url = json['urls']['thumb'];
+      : _id = json['id'],
+        _url = json['urls']['full'],
+        _isFavorite = false;
 
   String get id => _id;
 
   String get url => _url;
-}
 
-class Urls{
-  String _thumb;
-
-  Urls(this._thumb);
-  String get thumb => _thumb;
+  bool get isFavorite => _isFavorite;
 }
 
 class ImageDtoPage {
@@ -29,5 +26,4 @@ class ImageDtoPage {
   List<ImageDto>? get imageDtoList => _imageDtoList;
 
   int get page => _page;
-
 }

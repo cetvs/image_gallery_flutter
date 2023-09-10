@@ -15,11 +15,10 @@ ThunkAction<MainState> loadNextPage = (Store<MainState> store) async {
   ImageDtoPage imageDtoPage = await repository.getPageByCount(store.state.page);
 
   var dtoList = imageDtoPage.imageDtoList ?? [];
-  List<ImageDomain> resultList = [];
-  for (var el in dtoList) {
-    resultList.add(LayerParser.parse(el));
-  }
+  List<ImageDto> resultList = store.state.imageDomainList.toList();
+  // for (var el in dtoList) {
+  //   resultList.add(LayerParser.parse(el));
+  // }
 
   store.dispatch(LoadGalleryAction(resultList, imageDtoPage.page + 1));
 };
-

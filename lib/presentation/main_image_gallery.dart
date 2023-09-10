@@ -5,7 +5,6 @@ import 'package:flutter_redux/flutter_redux.dart';
 
 import '../domain/redux/middleware.dart';
 import '../domain/redux/state.dart';
-import 'favorite_button.dart';
 
 class MainImageGallery extends StatefulWidget {
   const MainImageGallery({super.key, required this.title});
@@ -17,25 +16,26 @@ class MainImageGallery extends StatefulWidget {
 }
 
 class _MainImageGalleryState extends State<MainImageGallery> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
-                child: StoreConnector<MainState, MainState>(
-                    converter: (store) => store.state,
-                    builder: (_, state) {
-                      var store = StoreProvider.of<MainState>(context);
-                      if (state.imageDomainList.isEmpty) {
+            child: StoreConnector<MainState, MainState>(
+                converter: (store) => store.state,
+                builder: (_, state) {
+                  var store = StoreProvider.of<MainState>(context);
+                  if (state.imageDomainList.isEmpty) {
+                    store.dispatch(loadNextPage);
+                  }
+                  return ListView.builder(
+                    itemCount: state.imageDomainList.length,
+                    itemBuilder: (_, index) {
+                      if (index + 1 == state.imageDomainList.length) {
                         store.dispatch(loadNextPage);
                       }
-                      return ListView.builder(
-                        itemCount: state.imageDomainList.length,
-                        itemBuilder: (_, index) {
-                          return ImageGallery(state.imageDomainList[index], index);
-                        },
-                      );
-                    })));
+                      return ImageGallery(state.imageDomainList[index], index);
+                    },
+                  );
+                })));
   }
-
 }

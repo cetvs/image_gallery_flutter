@@ -24,7 +24,7 @@ class Repository {
   }
 
   List<ImageDto> _parsePhotoPageResponse(response) {
-    // if (response.statusCode == 200) {
+    if (response.statusCode == 200) {
       String body = utf8.decode(response.bodyBytes);
       final responseList = jsonDecode(body);
       List<ImageDto> result = [];
@@ -32,8 +32,8 @@ class Repository {
         result.add(ImageDto.fromJson(responseList[i]));
       }
       return result;
-    // } else {
-    //   throw Exception("failed request");
-    // }
+    } else {
+      throw Exception("failed request");
+    }
   }
 }
