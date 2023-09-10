@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class GalleryImage extends StatefulWidget {
-  const GalleryImage({super.key});
+class FullscreenImage extends StatefulWidget {
+  const FullscreenImage({super.key});
 
   @override
-  State<GalleryImage> createState() => _GalleryImageState();
+  State<FullscreenImage> createState() => _FullscreenImageState();
 }
 
-class _GalleryImageState extends State<GalleryImage> {
+class _FullscreenImageState extends State<FullscreenImage> {
   // late int currentIndex = widget.initialIndex;
 
   void onPageChanged(int index) {

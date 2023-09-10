@@ -1,8 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/presentation/image_gallery.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 
-import 'gallery_image.dart';
+import '../domain/redux/middleware.dart';
+import '../domain/redux/state.dart';
+import 'favorite_button.dart';
 
 class MainImageGallery extends StatefulWidget {
   const MainImageGallery({super.key, required this.title});
@@ -14,43 +17,25 @@ class MainImageGallery extends StatefulWidget {
 }
 
 class _MainImageGalleryState extends State<MainImageGallery> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  final List<String> images = <String>[
-    'https://free-images.com/md/030c/coffee_171653.jpg'
-  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.builder(
-        itemCount: 4,
-        itemBuilder: (_, index) {
-          return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: InkWell(
-                  onTap: () => open(context, index),
-                  child: Container(
-                    height: 200,
-                    color: Colors.amberAccent,
-                    child: PhotoView(imageProvider: AssetImage(images.first)),
-                  )
-              )
-          );
-        },
-      ),
-    );
+        body: Center(
+                child: StoreConnector<MainState, MainState>(
+                    converter: (store) => store.state,
+                    builder: (_, state) {
+                      var store = StoreProvider.of<MainState>(context);
+                      if (state.imageDomainList.isEmpty) {
+                        store.dispatch(loadNextPage);
+                      }
+                      return ListView.builder(
+                        itemCount: state.imageDomainList.length,
+                        itemBuilder: (_, index) {
+                          return ImageGallery(state.imageDomainList[index], index);
+                        },
+                      );
+                    })));
   }
 
-  void open(BuildContext context, final int index) {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => const GalleryImage()),
-    );
-  }
 }

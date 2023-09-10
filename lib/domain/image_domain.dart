@@ -1,18 +1,22 @@
 class ImageDomain {
-  final String? _title;
-  final String? _imageLink;
-  final bool _isLicked;
+  String _id;
+  String _url;
 
-  ImageDomain(this._title, this._imageLink, this._isLicked);
+  ImageDomain(this._id, this._url);
 
-  ImageDomain.fromPhoto(ImageDomain image)
-      : _title = image.title,
-        _imageLink = image.imageLink,
-        _isLicked = false;
+  String get id => _id;
 
-  bool get isLicked => _isLicked;
+  String get url => _url;
+}
 
-  String? get imageLink => _imageLink;
+class ImageDomainPage {
+  int _page;
+  List<ImageDomain>? _imageDto;
 
-  String? get title => _title;
+  ImageDomainPage(this._page, this._imageDto);
+
+  List<ImageDomain>? get photo => _imageDto;
+
+  int get page => _page;
+
 }

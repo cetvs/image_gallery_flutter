@@ -1,8 +1,9 @@
 import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 
 import '../utils/const.dart';
-import 'dto/image.dart';
+import 'dto/image_dto.dart';
 
 class Repository {
   static Repository? repo;
@@ -13,23 +14,26 @@ class Repository {
     return repo!;
   }
 
-  Future<ImagePage> getPageByCount(int currentPage, int pageCount) async {
+  Future<ImageDtoPage> getPageByCount(int page) async {
     final url = Uri.parse("$api"
-        "photos=?"
-        "&page=$currentPage"
+        "photos?"
+        "page=$page"
         "&client_id=$clientId");
     final response = await http.get(url);
-    return _parsePhotoPageResponse(response);
+    return ImageDtoPage(page, _parsePhotoPageResponse(response));
   }
 
-  ImagePage _parsePhotoPageResponse(response) {
-    if (response.statusCode == 200) {
+  List<ImageDto> _parsePhotoPageResponse(response) {
+    // if (response.statusCode == 200) {
       String body = utf8.decode(response.bodyBytes);
-      // remove 'jsonFlickrApi' in response string
-      return ImagePage.fromJson(
-          jsonDecode(body.substring(14, body.length - 1))["photos"]);
-    } else {
-      throw Exception("failed request");
-    }
+      final responseList = jsonDecode(body);
+      List<ImageDto> result = [];
+      for (var i = 0; i < responseList.length; i++) {
+        result.add(ImageDto.fromJson(responseList[i]));
+      }
+      return result;
+    // } else {
+    //   throw Exception("failed request");
+    // }
   }
 }
